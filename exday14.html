@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Excercise</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Personal Data</legend>            
+        <table>
+            <tr>
+                <td><label for="nama">Nama</label></td>
+                <td>:</td>
+                <td><input type="text" name="nama" id="nama" required></td>
+            </tr>
+            <tr>
+                <td><label for="ttl">Tempat/Tanggal Lahir</label></td>
+                <td>:</td>
+                <td><input type="text" id="tempat"></td>
+                <td><input type="date" id="tanggal"></td>
+            </tr>
+            <tr>
+                <td><label for="gender">Gender</label></td>
+                <td>:</td>
+                <td><input type="radio" id="pria" name="gender" value="pria" checked>P <input type="radio" id="wanita" name="gender" value="wanita">W</td>
+            </tr>
+            <tr>
+                <td><label for="phone">Phone</label></td>
+                <td>:</td>
+                <td><input type="number" id="phone" ></td>
+            </tr>
+            <tr>
+                <td><label for="email">Email</label></td>
+                <td>:</td>
+                <td><input type="email" id="email" ></td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Riwayat Pendidikan</legend>
+        <table>
+            <tr>
+                <th> </th>
+                <th>Institusi</th>
+                <th>Tahun Lulus</th>
+            </tr>
+            <tr>
+                <td>SD</td>
+                <td><input type="text" id="sd_nama"></td>
+                <td><input type="number" id="sd_tahun"></td>
+            </tr>
+            <tr>
+                <td>SMP</td>
+                <td><input type="text" id="smp_nama"></td>
+                <td><input type="number" id="smp_tahun"></td>
+            </tr>
+            <tr>
+                <td>SMA</td>
+                <td><input type="text" id="sma_nama"></td>
+                <td><input type="number" id="sma_tahun"></td>
+            </tr>
+            <tr>
+                <td>Kuliah</td>
+                <td><input type="text" id="kuliah_nama"></td>
+                <td><input type="number" id="kuliah_tahun"></td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Riwayat Pekerjaan</legend>
+        <p>Urutkan dari yang terbaru</p>
+        <table>
+            <tr>
+                <th>Nama Perusahaan</th>
+                <th>Lama Bekerja</th>
+                <th>Posisi</th>
+            </tr>
+            <tr>
+                <td><input type="text" id="nama1"></td>
+                <td><input type="text" id="lama1"></td>
+                <td><input type="text" id="pos1"></td>
+                <td><input type="checkbox" id="kerja1" checked>check apabila tidak ada</td>
+            </tr>
+            <tr>
+                <td><input type="text" id="nama2"></td>
+                <td><input type="text" id="lama2"></td>
+                <td><input type="text" id="pos2"></td>
+                <td><input type="checkbox" id="kerja2" checked>check apabila tidak ada</td>
+            </tr>
+            <tr>
+                <td><input type="text" id="nama3"></td>
+                <td><input type="text" id="lama3"></td>
+                <td><input type="text" id="pos3"></td>
+                <td><input type="checkbox" id="kerja3" checked>check apabila tidak ada</td>
+            </tr>
+        </table>
+    </fieldset>
+    <input type="submit" value="submit" onclick="show()">    
+    <br><br><br>
+    <div id="hasil"></div>
+    <div id="hasil1"></div>
+    <div id="hasil2"></div>
+
+    <script>        
+        function show(){
+        let gender;
+        if(document.getElementById('pria').checked){
+            gender = 'pria';
+        }
+        else if(document.getElementById('wanita').checked){
+            gender = 'wanita';
+        }
+        let nama = document.getElementById('nama').value;
+        let tempat = document.getElementById('tempat').value;
+        let tanggal = document.getElementById('tanggal').value;
+        let phone = document.getElementById('phone').value;
+        let email = document.getElementById('email').value;
+
+        let pendidikan =[
+            {nama: document.getElementById('sd_nama').value,
+             tahun: document.getElementById('sd_tahun').value},
+            {nama: document.getElementById('smp_nama').value,
+             tahun: document.getElementById('smp_tahun').value},
+            {nama: document.getElementById('sma_nama').value,
+             tahun: document.getElementById('sma_tahun').value},
+            {nama: document.getElementById('kuliah_nama').value,
+             tahun: document.getElementById('kuliah_tahun').value}
+        ];
+        for(let i = 0; i < pendidikan.length; i++){
+            if(pendidikan[i].nama == ''){
+                pendidikan[i].nama = '-';
+            }
+            if(pendidikan[i].tahun == ''){
+                pendidikan[i].tahun = '-';
+            }
+        }
+        if(pendidikan[0].nama != '-' || pendidikan[0].tahun != '-' ||pendidikan[1].nama != '-' || pendidikan[1].tahun != '-'||pendidikan[2].nama != '-' || pendidikan[2].tahun != '-' || pendidikan[3].nama != '-' || pendidikan[3].tahun != '-'){
+            document.getElementById('hasil1').innerHTML = '<fieldset><table cellspacing="10"><legend>Riwayat Pendidikan</legend><tr><td> SD</td><td>' + pendidikan[0].nama + '</td><td>' + pendidikan[0].tahun + '</td></tr><tr><td>SMP</td><td>' + pendidikan[1].nama + '</td><td>' + pendidikan[1].tahun + '</td></tr><tr><td>SMA</td><td>' + pendidikan[2].nama + '</td><td>' + pendidikan[2].tahun + '</td></tr><tr><td>Kuliah</td><td>' + pendidikan[3].nama + '</td><td>' + pendidikan[3].tahun + '</td></tr></table></fieldset>' ;
+        }
+        else{
+            document.getElementById('hasil1').innerHTML = '<fieldset><legend>Riwayat Pendidikan</legend>TIDAK PERNAH BELAJAR</fieldset>'                
+        }
+        
+
+        let kerja =[
+            {nama: document.getElementById('nama1').value,
+             lama: document.getElementById('lama1').value,
+             pos: document.getElementById('pos1').value},
+            {nama: document.getElementById('nama2').value,
+             lama: document.getElementById('lama2').value,
+             pos: document.getElementById('pos2').value},
+            {nama: document.getElementById('nama3').value,
+             lama: document.getElementById('lama3').value,
+             pos: document.getElementById('pos3').value}
+        ];
+        for(let l = 0; l<kerja.length; l++){
+            if(document.getElementById('kerja1').checked != true || document.getElementById('kerja2').checked != true || document.getElementById('kerja3').checked != true){
+                if(kerja[l].nama == ''){
+                    kerja[l].nama = '-';
+                }
+                if(kerja[l].lama == ''){
+                    kerja[l].lama = '-';
+                }
+                if(kerja[l].pos == ''){
+                    kerja[l].pos = '-';
+                }
+            document.getElementById('hasil2').innerHTML = '<fieldset><table cellspacing="10"><legend>Riwayat Pekerjaan</legend><tr><td>' + kerja[0].nama + '</td><td>' + kerja[0].lama + '</td><td>' + kerja[0].pos + '</tr><tr><td>' + kerja[1].nama + '</td><td>' + kerja[1].lama + '</td><td>' + kerja[1].pos + '</tr><tr><td>' + kerja[2].nama + '</td><td>' + kerja[2].lama + '</td><td>' + kerja[2].pos + '</td></tr></table></fieldset>'    
+            }
+            else{
+                document.getElementById('hasil2').innerHTML = '<fieldset><legend>Riwayat Pekerjaan</legend>TIDAK PERNAH KERJA</fieldset>';
+            }
+        }
+        
+
+        document.getElementById('hasil').innerHTML = '<fieldset><img src ="https://goo.gl/hMC5HZ" width="60px" height="60px" /><table cellspacing="10"><legend>Personal Data</legend><tr><td>Nama</td> <td>:</td> <td> ' + nama + '</td></tr> <tr><td> Tempat/Tanggal Lahir</td><td>:</td><td>' + tempat +'/' + tanggal + '</td></tr><tr><td> Gender</td><td>:</td><td>' + gender + '</td></tr><tr><td> Phone</td><td>:</td><td>' + phone + '</td></tr><tr><td>Email</td><td>:</td><td> ' + email + '</table></fieldset>';                                         
+        }
+    </script>
+</body>
+</html>
